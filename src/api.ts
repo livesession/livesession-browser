@@ -17,6 +17,7 @@ export interface apiConfig {
   debug: () => void;
   track: (eventName: string, properties?: object) => void;
   log: (logLevel: ConsoleLogLevel, ...rest: any) => void;
+  setBundlerVersion: (version: string) => void;
 }
 
 const api: apiConfig = {
@@ -32,6 +33,7 @@ const api: apiConfig = {
   debug: () => apiCall("debug", true),
   track: (eventName: string, properties?: object) => apiCall("track", eventName, properties),
   log: (logLevel: ConsoleLogLevel, ...rest: any) => apiCall("log", logLevel, rest),
+  setBundlerVersion: (version: string) => apiCall("setBundlerVersion", version),
 };
 
 export const SDK_VERSION = "1.1.0";

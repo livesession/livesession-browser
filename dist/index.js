@@ -48,9 +48,16 @@ const _init = (trackID, options, sdkOptions = sdkOptionsDefaults) => {
     if (!trackID) {
         throw new Error(`trackID is required`);
     }
-    snippet_1.default(window, document, "script", sdkOptions.scriptURL);
+    (0, snippet_1.default)(window, document, "script", sdkOptions.scriptURL);
+    api_1.default.setBundlerVersion(getBundlerVersion());
     return api_1.default.init(trackID, options);
 };
+// TODO: finish and make it better and available for more tools
+function getBundlerVersion() {
+    // @ts-ignore
+    const version = import.meta.env.VITE_ST_BUILD_VERSION;
+    return version;
+}
 exports.default = {
     init: _init,
     getSessionURL: safeCall("getSessionURL"),

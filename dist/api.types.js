@@ -7,4 +7,4 @@ var ConsoleLogLevel;
     ConsoleLogLevel["info"] = "info";
     ConsoleLogLevel["warn"] = "warn";
     ConsoleLogLevel["error"] = "error";
-})(ConsoleLogLevel = exports.ConsoleLogLevel || (exports.ConsoleLogLevel = {}));
+})(ConsoleLogLevel || (exports.ConsoleLogLevel = ConsoleLogLevel = {}));

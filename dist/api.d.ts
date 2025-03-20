@@ -12,6 +12,7 @@ export interface apiConfig {
     debug: () => void;
     track: (eventName: string, properties?: object) => void;
     log: (logLevel: ConsoleLogLevel, ...rest: any) => void;
+    setBundlerVersion: (version: string) => void;
 }
 declare const api: apiConfig;
 export declare const SDK_VERSION = "1.1.0";

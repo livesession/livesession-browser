@@ -4,7 +4,7 @@ declare global {
     }
 }
 declare const _default: {
-    init: (trackID: string, options?: object | null | undefined, sdkOptions?: {
+    init: (trackID: string, options?: object | null, sdkOptions?: {
         devMode: boolean;
         scriptURL: string;
     }) => void;
@@ -17,7 +17,7 @@ declare const _default: {
     off: (args?: null | undefined) => any;
     optOut: (args?: null | undefined) => any;
     debug: (args?: null | undefined) => any;
-    track: (eventName: string, properties?: object | undefined) => void;
+    track: (eventName: string, properties?: object) => void;
     log: (logLevel: string, ...args: any) => void;
 };
 export default _default;

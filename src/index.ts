@@ -19,6 +19,7 @@ interface safeCallArgs {
   optOut: null;
   debug: null;
   log: null;
+  setBundlerVersion: null;
 }
 
 interface safeCallArgsManyArgs {
@@ -93,8 +94,18 @@ const _init = (trackID: string, options?: object | null, sdkOptions = sdkOptions
   }
   snippet(window, document, "script", sdkOptions.scriptURL);
 
+  api.setBundlerVersion(getBundlerVersion());
+
   return api.init(trackID, options);
 };
+
+// TODO: finish and make it better and available for more tools
+function getBundlerVersion() {
+  // @ts-ignore
+  const version = import.meta.env.VITE_ST_BUILD_VERSION
+
+  return version
+}
 
 export default {
   init: _init,

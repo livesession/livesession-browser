@@ -17,6 +17,7 @@ const api = {
     debug: () => apiCall("debug", true),
     track: (eventName, properties) => apiCall("track", eventName, properties),
     log: (logLevel, ...rest) => apiCall("log", logLevel, rest),
+    setBundlerVersion: (version) => apiCall("setBundlerVersion", version),
 };
 exports.SDK_VERSION = "1.1.0";
 exports.default = api;
