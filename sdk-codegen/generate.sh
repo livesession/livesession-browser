@@ -1,0 +1,1 @@
+fern generate --local --group sdk
