@@ -31,7 +31,13 @@ func NewClient(opts ...option.RequestOption) *Client {
 	}
 }
 
-func (c *Client) GetAllAlerts(
+// ---
+// title: List alerts
+// group: [ENDPOINTS]
+// ---
+//
+// List of all alerts
+func (c *Client) List(
 	ctx context.Context,
 	opts ...option.RequestOption,
 ) ([]*livesessiongo.Alert, error) {
@@ -79,7 +85,13 @@ func (c *Client) GetAllAlerts(
 	return response, nil
 }
 
-func (c *Client) CreateAnAlert(
+// ---
+// title: Create alert
+// group: [ENDPOINTS]
+// ---
+//
+// Create alert
+func (c *Client) Create(
 	ctx context.Context,
 	request *livesessiongo.AlertCreate,
 	opts ...option.RequestOption,
@@ -130,8 +142,15 @@ func (c *Client) CreateAnAlert(
 	return response, nil
 }
 
-func (c *Client) UpdateAnAlertById(
+// ---
+// title: Update alert
+// group: [ENDPOINTS]
+// ---
+//
+// Update alert by ID
+func (c *Client) Update(
 	ctx context.Context,
+	// Unique identifier of the alert to update
 	id string,
 	request *livesessiongo.AlertUpdate,
 	opts ...option.RequestOption,
@@ -185,11 +204,18 @@ func (c *Client) UpdateAnAlertById(
 	return response, nil
 }
 
-func (c *Client) DeleteAnAlertById(
+// ---
+// title: Delete alert
+// group: [ENDPOINTS]
+// ---
+//
+// Delete alert by ID
+func (c *Client) Delete(
 	ctx context.Context,
+	// Unique identifier of the alert to delete
 	id string,
 	opts ...option.RequestOption,
-) (*livesessiongo.DeleteAlertsIdResponse, error) {
+) (*livesessiongo.AlertsDeleteResponse, error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -217,7 +243,7 @@ func (c *Client) DeleteAnAlertById(
 		},
 	}
 
-	var response *livesessiongo.DeleteAlertsIdResponse
+	var response *livesessiongo.AlertsDeleteResponse
 	if err := c.caller.Call(
 		ctx,
 		&internal.CallParams{

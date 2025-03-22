@@ -9,16 +9,16 @@ import (
 )
 
 type WebsiteCreate struct {
-	// Host
+	// Domain name or hostname of the website to track
 	Host string `json:"host" url:"-"`
-	// Description
+	// Optional description of the website for organization purposes
 	Description *string `json:"description,omitempty" url:"-"`
 }
 
 type Website struct {
-	// Website ID
+	// Unique identifier for the website
 	WebsiteId *string `json:"website_id,omitempty" url:"website_id,omitempty"`
-	// Website host
+	// Domain name or hostname of the website (e.g., example.com)
 	Host *string `json:"host,omitempty" url:"host,omitempty"`
 
 	extraProperties map[string]interface{}

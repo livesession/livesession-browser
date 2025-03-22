@@ -32,7 +32,13 @@ func NewClient(opts ...option.RequestOption) *Client {
 	}
 }
 
-func (c *Client) GetAListOfWebhooks(
+// ---
+// title: List webhooks
+// group: [ENDPOINTS]
+// ---
+//
+// List of all webhooks
+func (c *Client) List(
 	ctx context.Context,
 	opts ...option.RequestOption,
 ) ([]*livesessiongo.Webhook, error) {
@@ -80,7 +86,13 @@ func (c *Client) GetAListOfWebhooks(
 	return response, nil
 }
 
-func (c *Client) CreateAWebhook(
+// ---
+// title: Create webhook
+// group: [ENDPOINTS]
+// ---
+//
+// Create a webhook
+func (c *Client) Create(
 	ctx context.Context,
 	request *livesessiongo.WebhookCreate,
 	opts ...option.RequestOption,
@@ -131,7 +143,13 @@ func (c *Client) CreateAWebhook(
 	return response, nil
 }
 
-func (c *Client) UpdateAWebhook(
+// ---
+// title: Update webhook
+// group: [ENDPOINTS]
+// ---
+//
+// Update a webhook
+func (c *Client) Update(
 	ctx context.Context,
 	// ID of the webhook to update
 	id string,
@@ -200,7 +218,13 @@ func (c *Client) UpdateAWebhook(
 	return response, nil
 }
 
-func (c *Client) DeleteAWebhook(
+// ---
+// title: Delete webhook
+// group: [ENDPOINTS]
+// ---
+//
+// Delete a webhook
+func (c *Client) Delete(
 	ctx context.Context,
 	// ID of the webhook to delete
 	id string,

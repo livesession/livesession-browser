@@ -13,22 +13,24 @@ type GetSessionsRequest struct {
 	Page *int `json:"-" url:"page,omitempty"`
 	// The number of page's size (default 25, max 100).
 	Size *int `json:"-" url:"size,omitempty"`
-	// The email address that you have associated with a session via [identify](https://developers.livesession.io/javascript-api/methods/#identify).
+	// The email address that you have associated with a session via [identify](/docs/api/browser/methods#identify).
 	Email *string `json:"-" url:"email,omitempty"`
 	// The visitor ID.
 	VisitorId *string `json:"-" url:"visitor_id,omitempty"`
 	// IANA timezone. Default Europe/London if RelativeDateString is applied.
 	Tz *string `json:"-" url:"tz,omitempty"`
-	// ISO 8601 string or RelativeDateString. For RelativeDateString see table below for possible values.
+	// [ISO 8601](https://wikipedia.org/wiki/ISO_8601) string or [RelativeDateString](/docs/api/rest/RelativeDateString).
 	DateFrom *string `json:"-" url:"date_from,omitempty"`
-	// ISO 8601 string or [RelativeDateString](#/components/schemas/RelativeDateString). For RelativeDateString see table below for possible values.
+	// [ISO 8601](https://wikipedia.org/wiki/ISO_8601) string or [RelativeDateString](/docs/api/rest/RelativeDateString).
 	DateTo *string `json:"-" url:"date_to,omitempty"`
 }
 
 type GetListSessionsResponse struct {
-	Total    *int        `json:"total,omitempty" url:"total,omitempty"`
-	Page     *Pagination `json:"page,omitempty" url:"page,omitempty"`
-	Sessions []*Session  `json:"sessions,omitempty" url:"sessions,omitempty"`
+	// Total number of sessions matching the query
+	Total *int        `json:"total,omitempty" url:"total,omitempty"`
+	Page  *Pagination `json:"page,omitempty" url:"page,omitempty"`
+	// List of session objects
+	Sessions []*Session `json:"sessions,omitempty" url:"sessions,omitempty"`
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
@@ -88,7 +90,9 @@ func (g *GetListSessionsResponse) String() string {
 }
 
 type Pagination struct {
-	Num  *int `json:"num,omitempty" url:"num,omitempty"`
+	// Current page number
+	Num *int `json:"num,omitempty" url:"num,omitempty"`
+	// Number of items per page
 	Size *int `json:"size,omitempty" url:"size,omitempty"`
 
 	extraProperties map[string]interface{}
@@ -142,24 +146,43 @@ func (p *Pagination) String() string {
 }
 
 type Session struct {
-	Id                  *string                         `json:"id,omitempty" url:"id,omitempty"`
-	WebsiteId           *string                         `json:"website_id,omitempty" url:"website_id,omitempty"`
-	SessionUrl          *string                         `json:"session_url,omitempty" url:"session_url,omitempty"`
-	CreationTimestamp   *int                            `json:"creation_timestamp,omitempty" url:"creation_timestamp,omitempty"`
-	Duration            *int                            `json:"duration,omitempty" url:"duration,omitempty"`
-	EndTimestamp        *int                            `json:"end_timestamp,omitempty" url:"end_timestamp,omitempty"`
-	ActiveTime          *int                            `json:"active_time,omitempty" url:"active_time,omitempty"`
-	EndUrl              *string                         `json:"end_url,omitempty" url:"end_url,omitempty"`
-	ExpirationTimestamp *int                            `json:"expiration_timestamp,omitempty" url:"expiration_timestamp,omitempty"`
-	LastEventTimestamp  *int                            `json:"last_event_timestamp,omitempty" url:"last_event_timestamp,omitempty"`
-	Product             *string                         `json:"product,omitempty" url:"product,omitempty"`
-	Device              *string                         `json:"device,omitempty" url:"device,omitempty"`
-	Tags                []string                        `json:"tags,omitempty" url:"tags,omitempty"`
-	LastSeenPageViewId  *string                         `json:"last_seen_page_view_id,omitempty" url:"last_seen_page_view_id,omitempty"`
-	Seen                *bool                           `json:"seen,omitempty" url:"seen,omitempty"`
-	Referrer            *string                         `json:"referrer,omitempty" url:"referrer,omitempty"`
-	StartUrl            *string                         `json:"start_url,omitempty" url:"start_url,omitempty"`
-	VisitorFirstSession *bool                           `json:"visitor_first_session,omitempty" url:"visitor_first_session,omitempty"`
+	// Unique identifier for the session
+	Id *string `json:"id,omitempty" url:"id,omitempty"`
+	// ID of the website where the session was recorded
+	WebsiteId *string `json:"website_id,omitempty" url:"website_id,omitempty"`
+	// URL to view the session in LiveSession dashboard
+	SessionUrl *string `json:"session_url,omitempty" url:"session_url,omitempty"`
+	// Unix timestamp when the session was created
+	CreationTimestamp *int `json:"creation_timestamp,omitempty" url:"creation_timestamp,omitempty"`
+	// Total duration of the session in seconds
+	Duration *int `json:"duration,omitempty" url:"duration,omitempty"`
+	// Unix timestamp when the session ended
+	EndTimestamp *int `json:"end_timestamp,omitempty" url:"end_timestamp,omitempty"`
+	// Total time the user was actively interacting with the page in seconds
+	ActiveTime *int `json:"active_time,omitempty" url:"active_time,omitempty"`
+	// The last URL visited during the session
+	EndUrl *string `json:"end_url,omitempty" url:"end_url,omitempty"`
+	// Unix timestamp when the session recording will expire
+	ExpirationTimestamp *int `json:"expiration_timestamp,omitempty" url:"expiration_timestamp,omitempty"`
+	// Unix timestamp of the last event recorded in the session
+	LastEventTimestamp *int `json:"last_event_timestamp,omitempty" url:"last_event_timestamp,omitempty"`
+	// Product identifier associated with the session
+	Product *string `json:"product,omitempty" url:"product,omitempty"`
+	// Device type (e.g., desktop, mobile, tablet)
+	Device *string `json:"device,omitempty" url:"device,omitempty"`
+	// Custom tags associated with the session
+	Tags []string `json:"tags,omitempty" url:"tags,omitempty"`
+	// ID of the last page view in the session
+	LastSeenPageViewId *string `json:"last_seen_page_view_id,omitempty" url:"last_seen_page_view_id,omitempty"`
+	// Whether the session has been viewed in the dashboard
+	Seen *bool `json:"seen,omitempty" url:"seen,omitempty"`
+	// URL where the user came from before starting the session
+	Referrer *string `json:"referrer,omitempty" url:"referrer,omitempty"`
+	// First URL visited during the session
+	StartUrl *string `json:"start_url,omitempty" url:"start_url,omitempty"`
+	// Whether this is the visitor's first session
+	VisitorFirstSession *bool `json:"visitor_first_session,omitempty" url:"visitor_first_session,omitempty"`
+	// Calculated engagement score for the session (0-100)
 	EngagmentScore      *float64                        `json:"engagment_score,omitempty" url:"engagment_score,omitempty"`
 	Visitor             *SessionVisitorData             `json:"visitor,omitempty" url:"visitor,omitempty"`
 	Resolution          *SessionResolutionData          `json:"resolution,omitempty" url:"resolution,omitempty"`
@@ -388,9 +411,12 @@ func (s *Session) String() string {
 }
 
 type SessionBrowserData struct {
+	// Full browser description string
 	Description *string `json:"description,omitempty" url:"description,omitempty"`
-	Name        *string `json:"name,omitempty" url:"name,omitempty"`
-	Version     *string `json:"version,omitempty" url:"version,omitempty"`
+	// Browser name (e.g., Chrome, Firefox, Safari)
+	Name *string `json:"name,omitempty" url:"name,omitempty"`
+	// Browser version
+	Version *string `json:"version,omitempty" url:"version,omitempty"`
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
@@ -450,11 +476,16 @@ func (s *SessionBrowserData) String() string {
 }
 
 type SessionEventsStatisticsData struct {
-	Clicks      *int `json:"clicks,omitempty" url:"clicks,omitempty"`
+	// Total number of clicks during the session
+	Clicks *int `json:"clicks,omitempty" url:"clicks,omitempty"`
+	// Number of clicks on error elements
 	ErrorClicks *int `json:"error_clicks,omitempty" url:"error_clicks,omitempty"`
-	RageClicks  *int `json:"rage_clicks,omitempty" url:"rage_clicks,omitempty"`
-	ErrorLogs   *int `json:"error_logs,omitempty" url:"error_logs,omitempty"`
-	NetErrors   *int `json:"net_errors,omitempty" url:"net_errors,omitempty"`
+	// Number of rapid clicks indicating user frustration
+	RageClicks *int `json:"rage_clicks,omitempty" url:"rage_clicks,omitempty"`
+	// Number of JavaScript errors logged
+	ErrorLogs *int `json:"error_logs,omitempty" url:"error_logs,omitempty"`
+	// Number of network errors encountered
+	NetErrors *int `json:"net_errors,omitempty" url:"net_errors,omitempty"`
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
@@ -528,7 +559,9 @@ func (s *SessionEventsStatisticsData) String() string {
 }
 
 type SessionOsData struct {
-	Name    *string `json:"name,omitempty" url:"name,omitempty"`
+	// Operating system name (e.g., Windows, macOS, iOS)
+	Name *string `json:"name,omitempty" url:"name,omitempty"`
+	// Operating system version
 	Version *string `json:"version,omitempty" url:"version,omitempty"`
 
 	extraProperties map[string]interface{}
@@ -582,6 +615,7 @@ func (s *SessionOsData) String() string {
 }
 
 type SessionPageViewsStatisticsData struct {
+	// Total number of page views in the session
 	Count *int `json:"count,omitempty" url:"count,omitempty"`
 
 	extraProperties map[string]interface{}
@@ -628,8 +662,11 @@ func (s *SessionPageViewsStatisticsData) String() string {
 }
 
 type SessionResolutionData struct {
-	Height     *int    `json:"height,omitempty" url:"height,omitempty"`
-	Width      *int    `json:"width,omitempty" url:"width,omitempty"`
+	// Screen height in pixels
+	Height *int `json:"height,omitempty" url:"height,omitempty"`
+	// Screen width in pixels
+	Width *int `json:"width,omitempty" url:"width,omitempty"`
+	// Screen resolution (e.g., "1920x1080")
 	Resolution *string `json:"resolution,omitempty" url:"resolution,omitempty"`
 
 	extraProperties map[string]interface{}
@@ -690,11 +727,16 @@ func (s *SessionResolutionData) String() string {
 }
 
 type SessionUtmData struct {
-	Source   *string `json:"source,omitempty" url:"source,omitempty"`
-	Medium   *string `json:"medium,omitempty" url:"medium,omitempty"`
+	// UTM source parameter (e.g., google, facebook)
+	Source *string `json:"source,omitempty" url:"source,omitempty"`
+	// UTM medium parameter (e.g., cpc, social)
+	Medium *string `json:"medium,omitempty" url:"medium,omitempty"`
+	// UTM campaign parameter
 	Campaign *string `json:"campaign,omitempty" url:"campaign,omitempty"`
-	Term     *string `json:"term,omitempty" url:"term,omitempty"`
-	Content  *string `json:"content,omitempty" url:"content,omitempty"`
+	// UTM term parameter (search keywords)
+	Term *string `json:"term,omitempty" url:"term,omitempty"`
+	// UTM content parameter
+	Content *string `json:"content,omitempty" url:"content,omitempty"`
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
@@ -768,15 +810,23 @@ func (s *SessionUtmData) String() string {
 }
 
 type SessionVisitorData struct {
-	Id                    *string                        `json:"id,omitempty" url:"id,omitempty"`
-	Ip                    *string                        `json:"ip,omitempty" url:"ip,omitempty"`
-	Geolocation           *SessionVisitorDataGeolocation `json:"geolocation,omitempty" url:"geolocation,omitempty"`
-	Name                  *string                        `json:"name,omitempty" url:"name,omitempty"`
-	Email                 *string                        `json:"email,omitempty" url:"email,omitempty"`
-	EmailHash             *string                        `json:"email_hash,omitempty" url:"email_hash,omitempty"`
-	Params                []*SessionVisitorDataParams    `json:"params,omitempty" url:"params,omitempty"`
-	LastSessionTimestamp  *int                           `json:"last_session_timestamp,omitempty" url:"last_session_timestamp,omitempty"`
-	FirstSessionTimestamp *int                           `json:"first_session_timestamp,omitempty" url:"first_session_timestamp,omitempty"`
+	// Unique identifier for the visitor
+	Id *string `json:"id,omitempty" url:"id,omitempty"`
+	// IP address of the visitor
+	Ip          *string                        `json:"ip,omitempty" url:"ip,omitempty"`
+	Geolocation *SessionVisitorDataGeolocation `json:"geolocation,omitempty" url:"geolocation,omitempty"`
+	// Name of the visitor if identified
+	Name *string `json:"name,omitempty" url:"name,omitempty"`
+	// Email address of the visitor if identified
+	Email *string `json:"email,omitempty" url:"email,omitempty"`
+	// Hashed version of the visitor's email for privacy
+	EmailHash *string `json:"email_hash,omitempty" url:"email_hash,omitempty"`
+	// Custom parameters associated with the visitor
+	Params []*SessionVisitorDataParams `json:"params,omitempty" url:"params,omitempty"`
+	// Unix timestamp of the visitor's last session
+	LastSessionTimestamp *int `json:"last_session_timestamp,omitempty" url:"last_session_timestamp,omitempty"`
+	// Unix timestamp of the visitor's first session
+	FirstSessionTimestamp *int `json:"first_session_timestamp,omitempty" url:"first_session_timestamp,omitempty"`
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
@@ -878,9 +928,12 @@ func (s *SessionVisitorData) String() string {
 }
 
 type SessionVisitorDataGeolocation struct {
+	// Two-letter country code (ISO 3166-1 alpha-2)
 	CountryCode *string `json:"country_code,omitempty" url:"country_code,omitempty"`
-	City        *string `json:"city,omitempty" url:"city,omitempty"`
-	Region      *string `json:"region,omitempty" url:"region,omitempty"`
+	// City name
+	City *string `json:"city,omitempty" url:"city,omitempty"`
+	// Region or state name
+	Region *string `json:"region,omitempty" url:"region,omitempty"`
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
@@ -940,7 +993,9 @@ func (s *SessionVisitorDataGeolocation) String() string {
 }
 
 type SessionVisitorDataParams struct {
-	Name  *string `json:"name,omitempty" url:"name,omitempty"`
+	// Parameter name
+	Name *string `json:"name,omitempty" url:"name,omitempty"`
+	// Parameter value
 	Value *string `json:"value,omitempty" url:"value,omitempty"`
 
 	extraProperties map[string]interface{}

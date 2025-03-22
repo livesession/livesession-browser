@@ -9,8 +9,10 @@ import (
 )
 
 type AlertDeleted struct {
+	// ID of the deleted alert
 	AlertId *string `json:"alert_id,omitempty" url:"alert_id,omitempty"`
-	Deleted *bool   `json:"deleted,omitempty" url:"deleted,omitempty"`
+	// Confirmation that the alert was deleted
+	Deleted *bool `json:"deleted,omitempty" url:"deleted,omitempty"`
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
@@ -109,12 +111,18 @@ func (e *ErrorResponse) String() string {
 }
 
 type ErrorResponseError struct {
-	Type           *string `json:"type,omitempty" url:"type,omitempty"`
-	Code           *string `json:"code,omitempty" url:"code,omitempty"`
-	Param          *string `json:"param,omitempty" url:"param,omitempty"`
-	Message        *string `json:"message,omitempty" url:"message,omitempty"`
-	HttpStatusCode *int    `json:"http_status_code,omitempty" url:"http_status_code,omitempty"`
-	RequestId      *string `json:"request_id,omitempty" url:"request_id,omitempty"`
+	// Type of error (e.g., validation_error, authentication_error)
+	Type *string `json:"type,omitempty" url:"type,omitempty"`
+	// Machine-readable error code
+	Code *string `json:"code,omitempty" url:"code,omitempty"`
+	// Name of the parameter that caused the error
+	Param *string `json:"param,omitempty" url:"param,omitempty"`
+	// Human-readable error message
+	Message *string `json:"message,omitempty" url:"message,omitempty"`
+	// HTTP status code associated with the error
+	HttpStatusCode *int `json:"http_status_code,omitempty" url:"http_status_code,omitempty"`
+	// Unique identifier for the request that caused the error
+	RequestId *string `json:"request_id,omitempty" url:"request_id,omitempty"`
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
@@ -261,8 +269,8 @@ const (
 	RelativeDateStringBeginningOfWeek      RelativeDateString = "BEGINNING_OF_WEEK"
 	RelativeDateStringBeginningOfMonth     RelativeDateString = "BEGINNING_OF_MONTH"
 	RelativeDateStringBeginningOfPrevMonth RelativeDateString = "BEGINNING_OF_PREV_MONTH"
-	RelativeDateStringTodayPrevDays        RelativeDateString = "TODAY-7DAYS"
-	RelativeDateStringTodayPrev30Days      RelativeDateString = "TODAY-30DAYS"
+	RelativeDateStringToday7Days           RelativeDateString = "TODAY-7DAYS"
+	RelativeDateStringToday30Days          RelativeDateString = "TODAY-30DAYS"
 )
 
 func NewRelativeDateStringFromString(s string) (RelativeDateString, error) {
@@ -278,9 +286,9 @@ func NewRelativeDateStringFromString(s string) (RelativeDateString, error) {
 	case "BEGINNING_OF_PREV_MONTH":
 		return RelativeDateStringBeginningOfPrevMonth, nil
 	case "TODAY-7DAYS":
-		return RelativeDateStringTodayPrevDays, nil
+		return RelativeDateStringToday7Days, nil
 	case "TODAY-30DAYS":
-		return RelativeDateStringTodayPrev30Days, nil
+		return RelativeDateStringToday30Days, nil
 	}
 	var t RelativeDateString
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
@@ -291,9 +299,13 @@ func (r RelativeDateString) Ptr() *RelativeDateString {
 }
 
 type SessionPageViewLocationData struct {
-	Base     *string `json:"base,omitempty" url:"base,omitempty"`
-	Href     *string `json:"href,omitempty" url:"href,omitempty"`
-	Origin   *string `json:"origin,omitempty" url:"origin,omitempty"`
+	// Base URL of the page
+	Base *string `json:"base,omitempty" url:"base,omitempty"`
+	// Full URL of the page
+	Href *string `json:"href,omitempty" url:"href,omitempty"`
+	// Origin of the page (protocol + hostname)
+	Origin *string `json:"origin,omitempty" url:"origin,omitempty"`
+	// URL of the previous page
 	Referrer *string `json:"referrer,omitempty" url:"referrer,omitempty"`
 
 	extraProperties map[string]interface{}
@@ -361,8 +373,10 @@ func (s *SessionPageViewLocationData) String() string {
 }
 
 type SessionPageViewViewPortData struct {
+	// Viewport height in pixels
 	Height *int `json:"height,omitempty" url:"height,omitempty"`
-	Width  *int `json:"width,omitempty" url:"width,omitempty"`
+	// Viewport width in pixels
+	Width *int `json:"width,omitempty" url:"width,omitempty"`
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage

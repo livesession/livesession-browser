@@ -31,7 +31,13 @@ func NewClient(opts ...option.RequestOption) *Client {
 	}
 }
 
-func (c *Client) GetAListOfWebsites(
+// ---
+// title: List websites
+// group: [ENDPOINTS]
+// ---
+//
+// List of all websites
+func (c *Client) List(
 	ctx context.Context,
 	opts ...option.RequestOption,
 ) ([]*livesessiongo.Website, error) {
@@ -79,7 +85,13 @@ func (c *Client) GetAListOfWebsites(
 	return response, nil
 }
 
-func (c *Client) CreateAWebsite(
+// ---
+// title: Create website
+// group: [ENDPOINTS]
+// ---
+//
+// Create a website
+func (c *Client) Create(
 	ctx context.Context,
 	request *livesessiongo.WebsiteCreate,
 	opts ...option.RequestOption,

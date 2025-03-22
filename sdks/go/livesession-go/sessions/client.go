@@ -31,6 +31,12 @@ func NewClient(opts ...option.RequestOption) *Client {
 	}
 }
 
+// ---
+// title: List sessions
+// group: [ENDPOINTS]
+// ---
+//
+// List of all sessions
 func (c *Client) GetSessions(
 	ctx context.Context,
 	request *livesessiongo.GetSessionsRequest,

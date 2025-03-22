@@ -9,22 +9,35 @@ import (
 )
 
 type AlertCreate struct {
-	Name           string            `json:"name" url:"-"`
-	Events         []*AlertEvent     `json:"events,omitempty" url:"-"`
-	Provider       AlertProviderEnum `json:"provider" url:"-"`
-	SlackChannelId *string           `json:"slack_channel_id,omitempty" url:"-"`
-	WebhookId      *string           `json:"webhook_id,omitempty" url:"-"`
+	// Name of the alert for easy identification
+	Name string `json:"name" url:"-"`
+	// List of events that will trigger the alert
+	Events []*AlertEvent `json:"events,omitempty" url:"-"`
+	// Notification provider for the alert, `slack` or `webhooks`
+	Provider AlertProviderEnum `json:"provider" url:"-"`
+	// Slack channel ID where notifications will be sent (required if provider is `slack`)
+	SlackChannelId *string `json:"slack_channel_id,omitempty" url:"-"`
+	// Webhook ID where notifications will be sent (required if provider is `webhooks`)
+	WebhookId *string `json:"webhook_id,omitempty" url:"-"`
 }
 
 type Alert struct {
-	AlertId        *string            `json:"alert_id,omitempty" url:"alert_id,omitempty"`
-	Name           *string            `json:"name,omitempty" url:"name,omitempty"`
-	Events         []*AlertEvent      `json:"events,omitempty" url:"events,omitempty"`
-	Provider       *AlertProviderEnum `json:"provider,omitempty" url:"provider,omitempty"`
-	SlackChannelId *string            `json:"slack_channel_id,omitempty" url:"slack_channel_id,omitempty"`
-	WebhookId      *string            `json:"webhook_id,omitempty" url:"webhook_id,omitempty"`
-	Enabled        *bool              `json:"enabled,omitempty" url:"enabled,omitempty"`
-	CreationDate   *string            `json:"creation_date,omitempty" url:"creation_date,omitempty"`
+	// Unique identifier for the alert
+	AlertId *string `json:"alert_id,omitempty" url:"alert_id,omitempty"`
+	// Name of the alert
+	Name *string `json:"name,omitempty" url:"name,omitempty"`
+	// List of events that trigger the alert
+	Events []*AlertEvent `json:"events,omitempty" url:"events,omitempty"`
+	// Notification provider for the alert
+	Provider *AlertProviderEnum `json:"provider,omitempty" url:"provider,omitempty"`
+	// Slack channel ID for notifications
+	SlackChannelId *string `json:"slack_channel_id,omitempty" url:"slack_channel_id,omitempty"`
+	// Webhook ID for notifications
+	WebhookId *string `json:"webhook_id,omitempty" url:"webhook_id,omitempty"`
+	// Whether the alert is currently active
+	Enabled *bool `json:"enabled,omitempty" url:"enabled,omitempty"`
+	// [ISO 8601](https://wikipedia.org/wiki/ISO_8601) timestamp when the alert was created
+	CreationDate *string `json:"creation_date,omitempty" url:"creation_date,omitempty"`
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
@@ -119,7 +132,9 @@ func (a *Alert) String() string {
 }
 
 type AlertEvent struct {
-	Kind  *int    `json:"kind,omitempty" url:"kind,omitempty"`
+	// Kind of event, more info [here](/docs/api/rest/EventKind)
+	Kind *int `json:"kind,omitempty" url:"kind,omitempty"`
+	// Value or threshold that triggers the alert
 	Value *string `json:"value,omitempty" url:"value,omitempty"`
 
 	extraProperties map[string]interface{}
@@ -172,6 +187,7 @@ func (a *AlertEvent) String() string {
 	return fmt.Sprintf("%#v", a)
 }
 
+// Available notification providers for alerts
 type AlertProviderEnum string
 
 const (
@@ -194,64 +210,71 @@ func (a AlertProviderEnum) Ptr() *AlertProviderEnum {
 	return &a
 }
 
-type DeleteAlertsIdResponse struct {
+type AlertsDeleteResponse struct {
+	// ID of the alert that was deleted
 	AlertId *string `json:"alert_id,omitempty" url:"alert_id,omitempty"`
-	Deleted *bool   `json:"deleted,omitempty" url:"deleted,omitempty"`
+	// Indicates whether the alert was successfully deleted
+	Deleted *bool `json:"deleted,omitempty" url:"deleted,omitempty"`
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
 }
 
-func (d *DeleteAlertsIdResponse) GetAlertId() *string {
-	if d == nil {
+func (a *AlertsDeleteResponse) GetAlertId() *string {
+	if a == nil {
 		return nil
 	}
-	return d.AlertId
+	return a.AlertId
 }
 
-func (d *DeleteAlertsIdResponse) GetDeleted() *bool {
-	if d == nil {
+func (a *AlertsDeleteResponse) GetDeleted() *bool {
+	if a == nil {
 		return nil
 	}
-	return d.Deleted
+	return a.Deleted
 }
 
-func (d *DeleteAlertsIdResponse) GetExtraProperties() map[string]interface{} {
-	return d.extraProperties
+func (a *AlertsDeleteResponse) GetExtraProperties() map[string]interface{} {
+	return a.extraProperties
 }
 
-func (d *DeleteAlertsIdResponse) UnmarshalJSON(data []byte) error {
-	type unmarshaler DeleteAlertsIdResponse
+func (a *AlertsDeleteResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler AlertsDeleteResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DeleteAlertsIdResponse(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	*a = AlertsDeleteResponse(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *a)
 	if err != nil {
 		return err
 	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
+	a.extraProperties = extraProperties
+	a.rawJSON = json.RawMessage(data)
 	return nil
 }
 
-func (d *DeleteAlertsIdResponse) String() string {
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+func (a *AlertsDeleteResponse) String() string {
+	if len(a.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
 			return value
 		}
 	}
-	if value, err := internal.StringifyJSON(d); err == nil {
+	if value, err := internal.StringifyJSON(a); err == nil {
 		return value
 	}
-	return fmt.Sprintf("%#v", d)
+	return fmt.Sprintf("%#v", a)
 }
 
 type AlertUpdate struct {
-	Name           *string            `json:"name,omitempty" url:"-"`
-	Events         []*AlertEvent      `json:"events,omitempty" url:"-"`
-	Provider       *AlertProviderEnum `json:"provider,omitempty" url:"-"`
-	SlackChannelId *string            `json:"slack_channel_id,omitempty" url:"-"`
-	WebhookId      *string            `json:"webhook_id,omitempty" url:"-"`
+	// New name for the alert
+	Name *string `json:"name,omitempty" url:"-"`
+	// Updated list of events that will trigger the alert
+	Events []*AlertEvent `json:"events,omitempty" url:"-"`
+	// Updated notification provider for the alert
+	Provider *AlertProviderEnum `json:"provider,omitempty" url:"-"`
+	// Updated Slack channel ID for notifications
+	SlackChannelId *string `json:"slack_channel_id,omitempty" url:"-"`
+	// Updated webhook ID for notifications
+	WebhookId *string `json:"webhook_id,omitempty" url:"-"`
 }
