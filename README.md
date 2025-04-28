@@ -1,4 +1,5 @@
-[![Livesession SDK](https://circleci.com/gh/livesession/livesession-sdk.svg?style=svg)](https://circleci.com/gh/livesession/livesession-sdk/)
+[![GitHub Actions](https://github.com/livesession/livesession-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/livesession/livesession-sdk/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/@livesession/browser)](https://www.npmjs.com/package/@livesession/browser)
 
 # Official LiveSession Browser SDK
 
