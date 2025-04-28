@@ -48,7 +48,7 @@ const _init = (trackID, options, sdkOptions = sdkOptionsDefaults) => {
     if (!trackID) {
         throw new Error(`trackID is required`);
     }
-    snippet_1.default(window, document, "script", sdkOptions.scriptURL);
+    (0, snippet_1.default)(window, document, "script", sdkOptions.scriptURL);
     return api_1.default.init(trackID, options);
 };
 exports.default = {

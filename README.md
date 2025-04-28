@@ -1,6 +1,6 @@
 [![Livesession SDK](https://circleci.com/gh/livesession/livesession-sdk.svg?style=svg)](https://circleci.com/gh/livesession/livesession-sdk/)
 
-# Official LiveSession SDK
+# Official LiveSession Browser SDK
 
 This small package let you install LiveSession script and configure it properly.
 
@@ -8,12 +8,12 @@ If you need you can use methods that were also provided in this SDK.
 
 ## Usage
 
-`npm i @livesession/sdk` or `yarn add @livesession/sdk`
+`npm i @livesession/browser` or `yarn add @livesession/browser`
 
 Next, you should initialize the SDK on your website like in this example:
 
 ```javascript
-import ls from "@livesession/sdk";
+import ls from "@livesession/browser";
 
 // init a script, trackID is required
 ls.init("YOUR TRACKID", options, sdkOptions);
@@ -68,7 +68,7 @@ Implementation is created thanks to [@SkowyrnyMG](https://github.com/SkowyrnyMG)
 
 ```javascript
 // app.component.ts
-import ls from '@livesession/sdk'
+import ls from '@livesession/browser'
 
 export class AppComponent implemets OnInit {
     ngOnInit(){

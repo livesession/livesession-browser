@@ -1,36 +1,30 @@
 {
-  "name": "@livesession/sdk",
-  "version": "1.1.4",
+  "name": "@livesession/browser",
+  "version": "1.2.0",
   "description": "Add a LiveSession script to your site even easier with our SDK",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "scripts": {
-    "watch": "tsc -w",
-    "build": "tsc",
-    "test": "NODE_ENV=production jest"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/livesession/livesession-sdk.git"
   },
   "keywords": [
     "livesession",
+    "livesession browser sdk",
     "livesession sdk",
     "livesession plugin"
   ],
   "author": "LiveSession <hello@livesession.io>",
-  "contributors": [
-    {
-      "name": "Mateusz Gruźla",
-      "email": "m.gruzla@hotmail.com",
-      "url": "https://github.com/SkowyrnyMG"
-    }
-  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/livesession/livesession-sdk/issues"
   },
   "homepage": "https://livesession.io/",
+  "scripts": {
+    "watch": "tsc -w",
+    "build": "tsc",
+    "test": "NODE_ENV=production jest"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.21",
