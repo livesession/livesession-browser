@@ -3,6 +3,8 @@
   "version": "1.2.0",
   "description": "Add a LiveSession script to your site even easier with our SDK",
   "main": "./dist/index.js",
+  "module": "./dist/esm/index.js",
+  "browser": "./dist/esm/index.js",
   "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
@@ -22,7 +24,7 @@
   "homepage": "https://livesession.io/",
   "scripts": {
     "watch": "tsc -w",
-    "build": "tsc",
+    "build": "tsc && tsc --project tsconfig.esm.json",
     "test": "NODE_ENV=production jest"
   },
   "devDependencies": {
