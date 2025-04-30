@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "esnext", // Use ES module syntax
+    "outDir": "dist/esm", // Output ES modules to a separate directory
+    "declaration": true, // Generate type declarations
+    "declarationDir": "dist/esm" // Place declarations in the same directory
+  }
+}
