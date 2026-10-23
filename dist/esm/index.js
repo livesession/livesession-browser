@@ -53,6 +53,9 @@ export default {
     init: _init,
     getSessionURL: safeCall("getSessionURL"),
     identify: safeCall("identify"),
+    company: function (id, params) {
+        return safeCallManyArgs("company")(id, params);
+    },
     invalidateSession: safeCall("invalidateSession"),
     newPageView: safeCall("newPageView"),
     setOptions: safeCall("setOptions"),

@@ -1,4 +1,4 @@
-import { ConsoleLogLevel } from "./api.types";
+import { ConsoleLogLevel, IdentifyData, Params } from "./api.types";
 
 const apiCall = (name: string, ...args: any) => {
   return window.__ls(name, ...args);
@@ -7,7 +7,8 @@ const apiCall = (name: string, ...args: any) => {
 export interface apiConfig {
   init: (trackID: string, options?: object | null) => void;
   getSessionURL: (callback?: void) => void;
-  identify: (data?: object) => void;
+  identify: (data?: IdentifyData) => void;
+  company: (id: string, params?: Params) => void;
   invalidateSession: () => void;
   newPageView: (options?: object) => void;
   setOptions: (options?: object) => void;
@@ -22,7 +23,8 @@ export interface apiConfig {
 const api: apiConfig = {
   init: (trackID: string, options?: object | null) => apiCall("init", trackID, options),
   getSessionURL: (callback?: void) => apiCall("getSessionURL", callback),
-  identify: (data?: object) => apiCall("identify", data),
+  identify: (data?: IdentifyData) => apiCall("identify", data),
+  company: (id: string, params?: Params) => apiCall("company", id, params),
   invalidateSession: () => apiCall("invalidateSession"),
   newPageView: (options?: object) => apiCall("newPageView", options),
   setOptions: (options?: object) => apiCall("setOptions", options),

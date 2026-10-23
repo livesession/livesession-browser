@@ -1,6 +1,9 @@
 import snippet, { defaultScriptURL } from "./snippet";
 import api from "./api";
 import { apiConfig } from "./api";
+import { IdentifyData, Params } from "./api.types";
+
+export type { CompanyData, IdentifyData, Params } from "./api.types";
 
 declare global {
   interface Window {
@@ -10,7 +13,7 @@ declare global {
 
 interface safeCallArgs {
   getSessionURL: void;
-  identify: object;
+  identify: IdentifyData;
   invalidateSession: null;
   newPageView: object;
   setOptions: object;
@@ -24,9 +27,10 @@ interface safeCallArgs {
 interface safeCallArgsManyArgs {
   track: string;
   log: string;
+  company: string;
 }
 
-type Names = Omit<Omit<apiConfig, "init">, "track">;
+type Names = Omit<apiConfig, "init" | "track" | "company">;
 
 const sdkOptionsDefaults = {
   devMode: false,
@@ -100,6 +104,9 @@ export default {
   init: _init,
   getSessionURL: safeCall("getSessionURL"),
   identify: safeCall("identify"),
+  company: function (id: string, params?: Params) {
+    return safeCallManyArgs("company")(id, params);
+  },
   invalidateSession: safeCall("invalidateSession"),
   newPageView: safeCall("newPageView"),
   setOptions: safeCall("setOptions"),

@@ -104,7 +104,8 @@ If you initialized script, you can simply customize it with following functions:
 | ----------------- | ---------------------------- | ----------------- | -----------------------------------------------|
 | init              | trackID, options, sdkOptions | null, null, false | string(required), object, object               |
 | getSessionURL     | callback(url, isNewSession)  | null              | void(string, bool)                             |
-| identify          | data                         | null              | object                                         |
+| identify          | data                         | null              | IdentifyData                                   |
+| company           | id, params                   | null, null        | string(required), object                       |
 | invalidateSession | -                            | null              | -                                              |
 | newPageView       | options                      | null              | object                                         |
 | setOptions        | options                      | null              | object                                         |
@@ -118,6 +119,32 @@ If you initialized script, you can simply customize it with following functions:
 If out want to learn more about all methods, go to our [developers page](https://developers.livesession.io/javascript-api/methods/)
 
 ## Types
+
+### IdentifyData
+
+`identify(data)` takes your user's identity; `company` is the same payload as the `company` call.
+
+```typescript
+import ls, { CompanyData, IdentifyData } from "@livesession/browser";
+
+const company: CompanyData = {
+  company_id: "org_1", // your own company id, verbatim, max 128 bytes
+  name: "Acme",
+  url: "https://acme.example",
+  logo_url: "https://acme.example/logo.png",
+  params: { plan: "pro" }, // up to 50 custom properties
+};
+
+ls.identify({ uid: "42", name: "Ann", email: "ann@acme.example", company });
+```
+
+### company
+
+`company(id, params)` sets the visitor's company: `id` is your own company id (verbatim, max 128 bytes), `params` its properties — `name`, `url` and `logo_url` are the company's own fields, the rest its custom properties (up to 50). The latest company wins, for the browser and for the identified user; call it after `identify` so the user's id rides along.
+
+```typescript
+ls.company("org_1", { name: "Acme", url: "https://acme.example", plan: "pro" });
+```
 
 ### logLevel supported
 

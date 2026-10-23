@@ -1,3 +1,5 @@
+import { IdentifyData, Params } from "./api.types";
+export type { CompanyData, IdentifyData, Params } from "./api.types";
 declare global {
     interface Window {
         __ls: any;
@@ -9,7 +11,8 @@ declare const _default: {
         scriptURL: string;
     }) => void;
     getSessionURL: (args?: void | undefined) => any;
-    identify: (args?: object | undefined) => any;
+    identify: (args?: IdentifyData | undefined) => any;
+    company: (id: string, params?: Params) => any;
     invalidateSession: (args?: null | undefined) => any;
     newPageView: (args?: object | undefined) => any;
     setOptions: (args?: object | undefined) => any;
