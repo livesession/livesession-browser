@@ -5,6 +5,7 @@ import ls from "../index";
 const methods: string[] = [
   "getSessionURL",
   "identify",
+  "company",
   "invalidateSession",
   "newPageView",
   "setOptions",
@@ -50,6 +51,37 @@ describe("Adding script", () => {
       ls.init("test2");
       expect(consoleOutput).toEqual([warning]);
     });
+  });
+});
+
+describe("company", () => {
+  // The snippet's __ls queues every call until the script loads: the SDK
+  // hands `company` (and identify's `company`) over as `__ls("company", id, params)`.
+  const queued = () => window.__ls.store.map((args: IArguments) => Array.from(args));
+
+  it("passes the id and the params through as __ls('company', id, params)", () => {
+    ls.init("TRACK_ID", null, { devMode: false, scriptURL: "" });
+    ls.company("org_1", { name: "Acme", url: "https://acme.example", plan: "pro" });
+    ls.company("org_2");
+    expect(queued()).toEqual([
+      ["init", "TRACK_ID", null],
+      ["company", "org_1", { name: "Acme", url: "https://acme.example", plan: "pro" }],
+      ["company", "org_2", undefined],
+    ]);
+  });
+
+  it("identify takes the company as the same payload", () => {
+    ls.init("TRACK_ID", null, { devMode: false, scriptURL: "" });
+    const company = { company_id: "org_1", name: "Acme", logo_url: "https://acme.example/logo.png", params: { plan: "pro" } };
+    ls.identify({ uid: "42", name: "Ann", company });
+    expect(queued()).toEqual([
+      ["init", "TRACK_ID", null],
+      ["identify", { uid: "42", name: "Ann", company }],
+    ]);
+  });
+
+  it("throws before init like every other method", () => {
+    expect(() => ls.company("org_1")).toThrow();
   });
 });
 

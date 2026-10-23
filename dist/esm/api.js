@@ -5,6 +5,7 @@ const api = {
     init: (trackID, options) => apiCall("init", trackID, options),
     getSessionURL: (callback) => apiCall("getSessionURL", callback),
     identify: (data) => apiCall("identify", data),
+    company: (id, params) => apiCall("company", id, params),
     invalidateSession: () => apiCall("invalidateSession"),
     newPageView: (options) => apiCall("newPageView", options),
     setOptions: (options) => apiCall("setOptions", options),

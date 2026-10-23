@@ -1,8 +1,9 @@
-import { ConsoleLogLevel } from "./api.types";
+import { ConsoleLogLevel, IdentifyData, Params } from "./api.types";
 export interface apiConfig {
     init: (trackID: string, options?: object | null) => void;
     getSessionURL: (callback?: void) => void;
-    identify: (data?: object) => void;
+    identify: (data?: IdentifyData) => void;
+    company: (id: string, params?: Params) => void;
     invalidateSession: () => void;
     newPageView: (options?: object) => void;
     setOptions: (options?: object) => void;
